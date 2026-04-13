@@ -3,9 +3,9 @@ import os
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def generate_quiz(topic):
+def generate_quiz(topic,num_questions):
     prompt = f"""
-Create 3 explanatory questions with bullet-point answers based on:
+Create {num_questions} explanatory questions with bullet-point answers based on:
 {topic}
 """
 

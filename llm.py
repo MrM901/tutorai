@@ -1,7 +1,7 @@
 from groq import Groq
 import os
 
-client = Groq(api_key=os.getenv("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"))
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def generate_quiz(topic):
     prompt = f"""

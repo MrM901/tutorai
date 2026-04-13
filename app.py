@@ -21,30 +21,33 @@ with col2:
     st.info('Best for lecture notes, textbooks, handouts, and guides.')
 
 if uploaded_file:
-    with open('temp.pdf','wb') as f:
-        f.write(uploaded_file.read())
-    st.success('PDF uploaded successfully')
-
-    with st.spinner("Analyzing your document..."):
-
-     file_ext = uploaded_file.name.split(".")[-1].lower()
+    file_ext = uploaded_file.name.split(".")[-1].lower()
     temp_file = f"temp.{file_ext}"
 
     with open(temp_file, "wb") as f:
-        f.write(uploaded_file.read())
+        f.write(uploaded_file.getbuffer())
 
-    if file_ext == "pdf":
-         text = extract_text(temp_file)
+    st.success("File uploaded successfully")
 
-    elif file_ext == "pptx":
-        text = extract_ppt_text(temp_file)
+    with st.spinner("Analyzing your document..."):
 
-    elif file_ext == "ppt":
-        st.error("Please convert .ppt to .pptx and upload again.")
-        st.stop()
+        if file_ext == "pdf":
+            text = extract_text(temp_file)
 
-    chunks = chunk_text(text)
-    index, chunks = create_index(chunks)
+        elif file_ext == "pptx":
+            text = extract_ppt_text(temp_file)
+
+        elif file_ext == "ppt":
+            st.error("Please convert .ppt to .pptx and upload again.")
+            st.stop()
+
+        else:
+            st.error("Unsupported file type")
+            st.stop()
+
+        chunks = chunk_text(text)
+        index, chunks = create_index(chunks)
+
 
 
     tab1, tab2 = st.tabs(['Quiz', 'Preview'])

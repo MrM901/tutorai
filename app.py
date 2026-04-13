@@ -25,13 +25,22 @@ if uploaded_file:
         f.write(uploaded_file.read())
     st.success('PDF uploaded successfully')
 
-    with st.spinner('Analyzing your document...'):
+    with st.spinner("Analyzing your document..."):
 
-      if uploaded_file.name.endswith(".pdf"):
+      file_ext = uploaded_file.name.split(".")[-1].lower()
+
+      if file_ext == "pdf":
         text = extract_text("temp.pdf")
 
-      elif uploaded_file.name.endswith(".pptx"):
+      elif file_ext == "pptx":
         text = extract_ppt_text("temp.pptx")
+
+      else:
+        st.error("Unsupported file type")
+        st.stop()
+
+      chunks = chunk_text(text)
+      index, chunks = create_index(chunks)
 
     chunks = chunk_text(text)
     index, chunks = create_index(chunks)

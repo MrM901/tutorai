@@ -48,9 +48,6 @@ if uploaded_file:
         chunks = chunk_text(text)
         index, chunks = create_index(chunks)
 
-
-    tab1, tab2 = st.tabs(['Questions', 'Preview'])
-
     tab1, tab2 = st.tabs(['Questions', 'Preview'])
 
 with tab1:

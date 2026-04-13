@@ -40,8 +40,8 @@ if uploaded_file:
         text = extract_ppt_text(temp_file)
 
     elif file_ext == "ppt":
-        converted = convert_ppt_to_pptx(temp_file)
-        text = extract_ppt_text(converted)
+        st.error("Please convert .ppt to .pptx and upload again.")
+        st.stop()
 
     chunks = chunk_text(text)
     index, chunks = create_index(chunks)

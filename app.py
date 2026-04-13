@@ -12,7 +12,7 @@ st.markdown('''
 </style>
 ''', unsafe_allow_html=True)
 
-st.markdown("<div class='hero'><h1>📘 TutorAI</h1><p>Turn PDFs into smart quizzes and study notes in seconds.</p></div>",'\nBest for lecture notes, textbooks, handouts, and guides.', unsafe_allow_html=True)
+st.markdown("<div class='hero'><h1>📘 TutorAI</h1><p>Turn PDFs into smart quizzes and study notes in seconds.</p></div>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([1,1])
 with col1:

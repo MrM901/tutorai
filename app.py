@@ -33,7 +33,7 @@ if uploaded_file:
     tab1, tab2 = st.tabs(['Quiz', 'Preview'])
 
     with tab1:
-        if st.button('Generate Quiz', use_container_width=True):
+        if st.button('Generate Questions', use_container_width=True):
             with st.spinner('Generating questions...'):
                 results = retrieve('important concepts', index, chunks)
                 context = '\n'.join(results)

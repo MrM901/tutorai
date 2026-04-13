@@ -50,8 +50,8 @@ if uploaded_file:
 
     tab1, tab2 = st.tabs(['Questions', 'Preview'])
 
-with tab1:
-    num_questions = st.number_input(
+    with tab1:
+      num_questions = st.number_input(
         "How many questions do you want?",
         min_value=1,
         max_value=20,

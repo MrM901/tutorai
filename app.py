@@ -49,18 +49,32 @@ if uploaded_file:
         index, chunks = create_index(chunks)
 
 
+    tab1, tab2 = st.tabs(['Questions', 'Preview'])
 
-    tab1, tab2 = st.tabs(['Quiz', 'Preview'])
+    tab1, tab2 = st.tabs(['Questions', 'Preview'])
 
-    with tab1:
-        if st.button('Generate Questions', use_container_width=True):
-            with st.spinner('Generating questions...'):
-                results = retrieve('important concepts', index, chunks)
-                context = '\n'.join(results)
-                quiz = generate_quiz(context)
-            st.markdown("<div class='card'>" + quiz.replace('\n','<br>') + "</div>", unsafe_allow_html=True)
+with tab1:
+    num_questions = st.number_input(
+        "How many questions do you want?",
+        min_value=1,
+        max_value=20,
+        value=3,
+        step=1
+    )
 
-    with tab2:
-        st.write(text[:3000] + ('...' if len(text) > 3000 else ''))
-else:
-    st.caption('Upload a PDF to begin.')
+    if st.button('Generate Questions', use_container_width=True):
+        with st.spinner('Generating questions...'):
+            results = retrieve('important concepts', index, chunks)
+            context = '\n'.join(results)
+            quiz = generate_quiz(context, num_questions)
+
+        st.markdown(
+            "<div class='card'>" + quiz.replace('\n', '<br>') + "</div>",
+            unsafe_allow_html=True
+        )
+
+        with tab2:
+         st.write(text[:3000] + ('...' if len(text) > 3000 else ''))
+
+    else:
+      st.caption('Upload a file to begin.')

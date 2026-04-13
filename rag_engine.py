@@ -2,6 +2,7 @@ import fitz
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
+from pptx import Presentation
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -12,6 +13,18 @@ def extract_text(pdf_path):
     for page in doc:
         text += page.get_text()
     return text
+
+def extract_ppt_text(file):
+    prs = Presentation(file)
+    text = []
+
+    for slide in prs.slides:
+        for shape in slide.shapes:
+            if hasattr(shape, "text"):
+                text.append(shape.text)
+
+    return "\n".join(text)
+
 
 # 2. Chunk text
 def chunk_text(text, chunk_size=1000, overlap=200):

@@ -1,5 +1,5 @@
 import streamlit as st
-from rag_engine import extract_text, chunk_text, create_index, retrieve
+from rag_engine import extract_text, extract_ppt_text, chunk_text, create_index, retrieve
 from llm import generate_quiz
 
 st.set_page_config(page_title='TutorAI', page_icon='📘', layout='wide')
@@ -16,7 +16,7 @@ st.markdown("<div class='hero'><h1>📘 TutorAI</h1><p>Turn PDFs into smart quiz
 
 col1, col2 = st.columns([1,1])
 with col1:
-    uploaded_file = st.file_uploader('Upload your PDF', type=['pdf'])
+    uploaded_file = st.file_uploader('Upload your PDF', type=['pdf','ppt'])
 with col2:
     st.info('Best for lecture notes, textbooks, handouts, and guides.')
 
@@ -26,9 +26,15 @@ if uploaded_file:
     st.success('PDF uploaded successfully')
 
     with st.spinner('Analyzing your document...'):
-        text = extract_text('temp.pdf')
-        chunks = chunk_text(text)
-        index, chunks = create_index(chunks)
+
+      if uploaded_file.name.endswith(".pdf"):
+        text = extract_text("temp.pdf")
+
+      elif uploaded_file.name.endswith(".pptx"):
+        text = extract_ppt_text("temp.pptx")
+
+    chunks = chunk_text(text)
+    index, chunks = create_index(chunks)
 
     tab1, tab2 = st.tabs(['Quiz', 'Preview'])
 

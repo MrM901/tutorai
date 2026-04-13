@@ -3,6 +3,8 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 from pptx import Presentation
+import subprocess
+import os
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -25,6 +27,21 @@ def extract_ppt_text(file):
 
     return "\n".join(text)
 
+def convert_ppt_to_pptx(input_file):
+    output_dir = os.getcwd()
+
+    subprocess.run([
+        "soffice",
+        "--headless",
+        "--convert-to",
+        "pptx",
+        input_file,
+        "--outdir",
+        output_dir
+    ], check=True)
+
+    new_file = os.path.splitext(input_file)[0] + ".pptx"
+    return new_file
 
 # 2. Chunk text
 def chunk_text(text, chunk_size=1000, overlap=200):

@@ -12,14 +12,12 @@ st.markdown('''
 </style>
 ''', unsafe_allow_html=True)
 
-st.markdown("<div class='hero'><h1>📘 TutorAI</h1><p>Turn PDFs into smart quizzes and study notes in seconds." \
+st.markdown("<div class='hero'><h1>📘 TutorAI</h1><p>Turn Files into smart quizzes and study notes in seconds." \
 "\nBest for lecture notes, textbooks, handouts, and guides.</p></div>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([1,1])
 with col1:
     uploaded_file = st.file_uploader("Upload your file", type=["pdf", "ppt", "pptx"])
-with col2:
-    st.info('Best for lecture notes, textbooks, handouts, and guides.')
 
 if uploaded_file:
     file_ext = uploaded_file.name.split(".")[-1].lower()

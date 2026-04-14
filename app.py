@@ -2,6 +2,28 @@ import streamlit as st
 from rag_engine import extract_text, extract_ppt_text, convert_ppt_to_pptx, chunk_text, create_index, retrieve
 from llm import generate_quiz
 
+st.set_page_config(page_title="Tutor AI", layout="wide")
+
+st.markdown("""
+<style>
+/* Hide top-right deploy / github / toolbar buttons */
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+/* Hide header area */
+header {
+    visibility: hidden;
+    height: 0%;
+}
+
+/* Optional: hide footer */
+footer {
+    visibility: hidden;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.set_page_config(page_title='TutorAI', page_icon='📘', layout='wide')
 
 st.markdown('''
